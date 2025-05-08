@@ -4,18 +4,20 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     """
     Application settings loaded from environment variables or a .env file.
-    ---
+
     Attributes:
-        SECRET_KEY (str): Secret key used to sign JWT tokens.
-        ALGORITHM (str): Algorithm used for JWT signing (default: HS256).
-        ACCESS_TOKEN_EXPIRE_MINUTES (int): Token expiration time in minutes.
-        DEBUG (bool): Enables FastAPI debug mode if set to True.
+        ALGORITHM (str): JWT signing algorithm.
+        ACCESS_TOKEN_EXPIRE_MINUTES (int): Expiration duration access tokens.
+        DATABASE_URL (str): Database connection string.
+        DEBUG (bool): Enables FastAPI debug mode if True.
+        SECRET_KEY (str): Used to sign JWT tokens.
     """
 
-    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    DATABASE_URL: str = "sqlite:///./database/users.db"
     DEBUG: bool = True
+    SECRET_KEY: str
 
     class Config:
         env_file = ".env"

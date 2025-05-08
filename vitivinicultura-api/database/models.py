@@ -8,18 +8,13 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-class User(Base):
+class UserDB(Base):
     """
-    ORM model for users.
-
-    Attributes:
-        id (int): Primary key, unique identifier for each user.
-        username (str): Unique username.
-        hashed_password (str): Hashed version of the user's password.
+    Represents an application user.
     """
 
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
+    id = Column(Integer, primary_key=True)
+    username = Column(String(64), unique=True, index=True, nullable=False)
+    hashed_password = Column(String(128), nullable=False)
