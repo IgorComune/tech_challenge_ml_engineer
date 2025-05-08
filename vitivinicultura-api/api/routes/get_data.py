@@ -1,7 +1,10 @@
 from fastapi import APIRouter, HTTPException
 from api.services.scrapers_registry import scrapers_registry
 
-router = APIRouter(prefix="/data", tags=["data"]) #getting from csv, but we need to ajust it
+router = APIRouter(
+    prefix="/data", tags=["data"]
+)  # getting from csv, but we need to ajust it
+
 
 @router.get("/{category}", summary="Fetch viticulture data from Embrapa")
 def get_data_by_category(category: str):
@@ -19,10 +22,12 @@ def get_data_by_category(category: str):
         raise HTTPException(status_code=404, detail="Invalid data category")
 
     scraper = scraper_class()
-    data = scraper.get_json() # CHANGE IF NECESSARY 
-    #considering that each scraper will have a method called get_json().
+    data = scraper.get_json()  # CHANGE IF NECESSARY
+    # considering that each scraper will have a method called get_json().
 
     if not data:
-        raise HTTPException(status_code=503, detail="No data available or Embrapa unreachable")
+        raise HTTPException(
+            status_code=503, detail="No data available or Embrapa unreachable"
+        )
 
     return data
